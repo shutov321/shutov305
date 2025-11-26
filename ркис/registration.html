@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Прожектор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+   
+    <header>
+        <div class="container header-container">
+            <div class="logo">Прожектор</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О конкурсе</a></li>
+                    <li><a href="categories.html">Категории</a></li>
+                    <li><a href="registration.html" class="active">Регистрация</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="testimonials.html">Отзывы</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="admin/login.html" class="admin-login">Вход для админа</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Регистрация на конкурс</h1>
+            <p>Заполните форму ниже для участия в конкурсе Прожектор</p>
+        </div>
+    </section>
+
+    <section class="registration-form-section">
+        <div class="container">
+            <div class="registration-steps">
+                <div class="step active" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Личные данные</span>
+                </div>
+                <div class="step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-text">Выбор категорий</span>
+                </div>
+                <div class="step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Загрузка файлов</span>
+                </div>
+                <div class="step" data-step="4">
+                    <span class="step-number">4</span>
+                    <span class="step-text">Подтверждение</span>
+                </div>
+            </div>
+
+            <form id="registrationForm" class="multi-step-form" enctype="multipart/form-data">
+                <!-- Step 1: Personal Info -->
+                <div class="form-step active" data-step="1">
+                    <h2>Личные данные</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="fullName">ФИО *</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control" required>
+                            <span class="error-message" id="fullNameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Номер телефона *</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                            <span class="error-message" id="phoneError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age">Возраст *</label>
+                            <input type="number" id="age" name="age" class="form-control" min="16" max="60" required>
+                            <span class="error-message" id="ageError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city">Город *</label>
+                            <input type="text" id="city" name="city" class="form-control" required>
+                            <span class="error-message" id="cityError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experience">Опыт участия в конкурсах</label>
+                            <textarea id="experience" name="experience" class="form-control" rows="3" placeholder="Опишите ваш предыдущий опыт участия в подобных мероприятиях"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-next" data-next="2">Далее</button>
+                    </div>
+                </div>
+
+              
+                <div class="form-step" data-step="2">
+                    <h2>Выбор категорий для участия</h2>
+                    <p class="step-description">Вы можете выбрать одну или несколько категорий</p>
+
+                    <div class="categories-selection">
+                        <div class="category-option">
+                            <input type="checkbox" id="categoryFashion" name="categories" value="fashion">
+                            <label for="categoryFashion">
+                                <span class="category-name">Лейтилс</span>
+                                <span class="category-description">Дефиле и презентация моделей</span>
+                            </label>
+                        </div>
+
+                        <div class="category-option">
+                            <input type="checkbox" id="categoryPhoto" name="categories" value="photo">
+                            <label for="categoryPhoto">
+                                <span class="category-name">Фотоконкурс</span>
+                                <span class="category-description">Профессиональная и любительская фотография</span>
+                            </label>
+                        </div>
+
+                        <div class="category-option">
+                            <input type="checkbox" id="categoryCreative" name="categories" value="creative">
+                            <label for="categoryCreative">
+                                <span class="category-name">Фотоиониум</span>
+                                <span class="category-description">Экспериментальная и креативная фотография</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <span class="error-message" id="categoriesError"></span>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev" data-prev="1">Назад</button>
+                        <button type="button" class="btn btn-next" data-next="3">Далее</button>
+                    </div>
+                </div>
+
+             
+                <div class="form-step" data-step="3">
+                    <h2>Загрузка файлов</h2>
+
+                    <div class="upload-section">
+                        <div class="upload-item required">
+                            <h3>Фотографии для портфолио *</h3>
+                            <p>Загрузите 3-5 ваших лучших фотографий в хорошем качестве</p>
+                            <div class="file-upload-area" id="photosUpload">
+                                <input type="file" id="photos" name="photos" multiple accept="image/*" required>
+                                <div class="upload-placeholder">
+                                    <div class="upload-icon">📷</div>
+                                    <p>Перетащите фото сюда или нажмите для выбора</p>
+                                    <span class="file-requirements">JPEG, PNG до 10MB каждая</span>
+                                </div>
+                                <div class="uploaded-files" id="photosList"></div>
+                            </div>
+                        </div>
+
+                        <div class="upload-item">
+                            <h3>Музыка для дефиле</h3>
+                            <p>Только для участников категории "Лейтилс"</p>
+                            <div class="file-upload-area" id="musicUpload">
+                                <input type="file" id="music" name="music" accept="audio/*">
+                                <div class="upload-placeholder">
+                                    <div class="upload-icon">🎵</div>
+                                    <p>Перетащите аудиофайл сюда или нажмите для выбора</p>
+                                    <span class="file-requirements">MP3 до 20MB</span>
+                                </div>
+                                <div class="uploaded-files" id="musicList"></div>
+                            </div>
+                        </div>
+
+                        <div class="upload-item">
+                            <h3>Дополнительные материалы</h3>
+                            <p>Портфолио, рекомендации и другие документы (опционально)</p>
+                            <div class="file-upload-area" id="docsUpload">
+                                <input type="file" id="docs" name="docs" multiple accept=".pdf,.doc,.docx">
+                                <div class="upload-placeholder">
+                                    <div class="upload-icon">📄</div>
+                                    <p>Перетащите документы сюда или нажмите для выбора</p>
+                                    <span class="file-requirements">PDF, DOC до 5MB каждый</span>
+                                </div>
+                                <div class="uploaded-files" id="docsList"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev" data-prev="2">Назад</button>
+                        <button type="button" class="btn btn-next" data-next="4">Далее</button>
+                    </div>
+                </div>
+
+               
+                <div class="form-step" data-step="4">
+                    <h2>Подтверждение заявки</h2>
+
+                    <div class="confirmation-summary">
+                        <div class="summary-section">
+                            <h3>Личные данные</h3>
+                            <div id="personalSummary"></div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h3>Выбранные категории</h3>
+                            <div id="categoriesSummary"></div>
+                        </div>
+
+                        <div class="summary-section">
+                            <h3>Загруженные файлы</h3>
+                            <div id="filesSummary"></div>
+                        </div>
+                    </div>
+
+                    <div class="agreement">
+                        <input type="checkbox" id="agreement" name="agreement" required>
+                        <label for="agreement">
+                            Я ознакомлен(а) с <a href="#" target="_blank">правилами конкурса</a> и даю согласие на обработку моих персональных данных
+                        </label>
+                        <span class="error-message" id="agreementError"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-prev" data-prev="3">Назад</button>
+                        <button type="submit" class="btn btn-submit">Отправить заявку</button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="formMessages"></div>
+        </div>
+    </section>
+
+    
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Частые вопросы</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>📝 Как проходит регистрация?</h3>
+                    <p>Заполните форму на этой странице, выберите категории и загрузите необходимые файлы. После проверки заявки мы свяжемся с вами.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>⏰ До какого числа можно зарегистрироваться?</h3>
+                    <p>Регистрация открыта до 10 ноября 2024 года. Рекомендуем подавать заявки заранее.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>💰 Есть ли регистрационный взнос?</h3>
+                    <p>Участие в конкурсе бесплатное. Все организационные расходы покрываются спонсорами.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>📞 Как узнать статус заявки?</h3>
+                    <p>После отправки заявки вы получите уведомление на email. Дополнительную информацию можно уточнить по телефону.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">Прожектор</div>
+                    <p>Конкурс дефиле и фото для талантливых людей. Покажите свой стиль и получите признание!</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Страницы</h3>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О конкурсе</a></li>
+                        <li><a href="categories.html">Категории</a></li>
+                        <li><a href="registration.html">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li>📞 +7 (999) 123-45-67</li>
+                        <li>✉️ info@projector-contest.ru</li>
+                        <li>📍 г. Москва, ул. Примерная, д. 10</li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Соцсети</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">VK</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Конкурс Прожектор. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/form-handler.js"></script>
+    <script src="js/registration.js"></script>
+</body>
+</html>

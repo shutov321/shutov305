@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы участников - Прожектор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+ 
+    <header>
+        <div class="container header-container">
+            <div class="logo">Прожектор</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О конкурсе</a></li>
+                    <li><a href="categories.html">Категории</a></li>
+                    <li><a href="registration.html">Регистрация</a></li>
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="testimonials.html" class="active">Отзывы</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="admin/login.html" class="admin-login">Вход для админа</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <section class="page-header">
+        <div class="container">
+            <h1>Отзывы участников</h1>
+            <p>Узнайте, что говорят о своем опыте участники наших конкурсов</p>
+        </div>
+    </section>
+
+
+    <section class="testimonials-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <span class="stat-number">4.8</span>
+                        <span class="stat-label">Средняя оценка</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💬</div>
+                    <div class="stat-content">
+                        <span class="stat-number">127</span>
+                        <span class="stat-label">Отзывов</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-content">
+                        <span class="stat-number">89%</span>
+                        <span class="stat-label">Рекомендуют</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-content">
+                        <span class="stat-number">56</span>
+                        <span class="stat-label">Победителей</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    <section class="testimonials-filter">
+        <div class="container">
+            <div class="filter-options">
+                <button class="filter-option active" data-filter="all">Все отзывы</button>
+                <button class="filter-option" data-filter="5">⭐ 5 звезд</button>
+                <button class="filter-option" data-filter="4">⭐ 4 звезды</button>
+                <button class="filter-option" data-filter="3">⭐ 3 звезды</button>
+                <button class="filter-option" data-filter="winners">Победители</button>
+                <button class="filter-option" data-filter="first-time">Новички</button>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="testimonials-grid-section">
+        <div class="container">
+            <div class="testimonials-container" id="testimonialsContainer">
+                <!-- Testimonials will be loaded dynamically -->
+            </div>
+
+            <div class="load-more-testimonials">
+                <button class="btn btn-outline" id="loadMoreTestimonials">Загрузить еще отзывы</button>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="featured-testimonials">
+        <div class="container">
+            <h2 class="section-title">Истории успеха</h2>
+            <div class="success-stories">
+                <div class="success-story">
+                    <div class="story-image">
+                        <img src="images/success1.jpg" alt="История успеха" onerror="this.src='https://via.placeholder.com/200x200?text=Успех'">
+                    </div>
+                    <div class="story-content">
+                        <h3>От участника к профессионалу</h3>
+                        <p class="story-author">Мария Смирнова, победитель 2022</p>
+                        <p class="story-text">"Участие в конкурсе 'Прожектор' стало поворотным моментом в моей карьере. После победы я получила предложение о сотрудничестве от известного модельного агентства и сейчас работаю на международных показах."</p>
+                        <div class="story-achievements">
+                            <span class="achievement">Paris Fashion Week</span>
+                            <span class="achievement">Vogue Россия</span>
+                            <span class="achievement">L'Officiel</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="success-story">
+                    <div class="story-image">
+                        <img src="images/success2.jpg" alt="История успеха" onerror="this.src='https://via.placeholder.com/200x200?text=Успех'">
+                    </div>
+                    <div class="story-content">
+                        <h3>Мечта, которая сбылась</h3>
+                        <p class="story-author">Алексей Козлов, фотограф</p>
+                        <p class="story-text">"Благодаря конкурсу мои работы увидели ведущие арт-директоры. Сейчас мои фотографии публикуют в профессиональных изданиях, а я открыл свою студию и обучаю молодых фотографов."</p>
+                        <div class="story-achievements">
+                            <span class="achievement">Собственная студия</span>
+                            <span class="achievement">Преподаватель</span>
+                            <span class="achievement">Публикации</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  
+    <section class="add-testimonial-section">
+        <div class="container">
+            <div class="add-testimonial-form">
+                <h2>Поделитесь своим опытом</h2>
+                <p>Расскажите о своих впечатлениях от участия в конкурсе</p>
+                
+                <form id="testimonialForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userName">Ваше имя *</label>
+                            <input type="text" id="userName" name="userName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="userCategory">Категория участия *</label>
+                            <select id="userCategory" name="userCategory" class="form-control" required>
+                                <option value="">Выберите категорию</option>
+                                <option value="fashion">Лейтилс</option>
+                                <option value="photo">Фотоконкурс</option>
+                                <option value="creative">Фотоиониум</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userYear">Год участия *</label>
+                        <select id="userYear" name="userYear" class="form-control" required>
+                            <option value="">Выберите год</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ваша оценка *</label>
+                        <div class="rating-stars">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5">⭐</label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4">⭐</label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3">⭐</label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2">⭐</label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1">⭐</label>
+                        </div>
+                        <span class="error-message" id="ratingError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="testimonialText">Ваш отзыв *</label>
+                        <textarea id="testimonialText" name="testimonialText" class="form-control" rows="6" placeholder="Расскажите о вашем опыте участия, впечатлениях, достижениях..." required></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/500 символов
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userAchievements">Ваши достижения после конкурса</label>
+                        <textarea id="userAchievements" name="userAchievements" class="form-control" rows="3" placeholder="Какие возможности открылись для вас после участия?"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Опубликовать отзыв</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+  
+    <section class="testimonials-faq">
+        <div class="container">
+            <h2 class="section-title">Частые вопросы об отзывах</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>📝 Как публикуются отзывы?</h3>
+                    <p>Все отзывы проходят модерацию перед публикацией. Мы проверяем их на соответствие правилам и достоверность информации.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>⏰ Сколько ждать публикации?</h3>
+                    <p>Обычно модерация занимает 1-2 рабочих дня. После одобрения ваш отзыв появится на сайте.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>✏️ Можно ли редактировать отзыв?</h3>
+                    <p>Да, вы можете написать нам для редактирования опубликованного отзыва.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>📞 Где узнать статус модерации?</h3>
+                    <p>Статус модерации можно уточнить по телефону или email, указанным в контактах.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ 
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">Прожектор</div>
+                    <p>Конкурс дефиле и фото для талантливых людей. Покажите свой стиль и получите признание!</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Страницы</h3>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О конкурсе</a></li>
+                        <li><a href="categories.html">Категории</a></li>
+                        <li><a href="registration.html">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li>📞 +7 (999) 123-45-67</li>
+                        <li>✉️ info@projector-contest.ru</li>
+                        <li>📍 г. Москва, ул. Примерная, д. 10</li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Соцсети</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">VK</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Конкурс Прожектор. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/testimonials.js"></script>
+</body>
+</html>

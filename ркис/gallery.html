@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея работ - Прожектор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/responsive.css">
+</head>
+<body>
+ 
+    <header>
+        <div class="container header-container">
+            <div class="logo">Прожектор</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Главная</a></li>
+                    <li><a href="about.html">О конкурсе</a></li>
+                    <li><a href="categories.html">Категории</a></li>
+                    <li><a href="registration.html">Регистрация</a></li>
+                    <li><a href="gallery.html" class="active">Галерея</a></li>
+                    <li><a href="testimonials.html">Отзывы</a></li>
+                    <li><a href="contact.html">Контакты</a></li>
+                    <li><a href="admin/login.html" class="admin-login">Вход для админа</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+ 
+    <section class="page-header">
+        <div class="container">
+            <h1>Галерея работ</h1>
+            <p>Лучшие работы участников прошлых конкурсов и текущего сезона</p>
+        </div>
+    </section>
+
+   
+    <section class="gallery-filters">
+        <div class="container">
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">Все работы</button>
+                <button class="filter-btn" data-filter="fashion">Лейтилс</button>
+                <button class="filter-btn" data-filter="photo">Фотоконкурс</button>
+                <button class="filter-btn" data-filter="creative">Фотоиониум</button>
+                <button class="filter-btn" data-filter="winners">Победители</button>
+            </div>
+            <div class="sort-controls">
+                <select id="sortGallery" class="sort-select">
+                    <option value="newest">Сначала новые</option>
+                    <option value="oldest">Сначала старые</option>
+                    <option value="popular">По популярности</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="gallery-main">
+        <div class="container">
+            <div class="gallery-stats">
+                <div class="stat-item">
+                    <span class="stat-number">247</span>
+                    <span class="stat-label">Работ в галерее</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">36</span>
+                    <span class="stat-label">Победителя</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Года проведения</span>
+                </div>
+            </div>
+
+            <div class="gallery-container" id="galleryContainer">
+              
+            </div>
+
+            <div class="load-more-container">
+                <button class="btn btn-outline" id="loadMoreBtn">Показать еще</button>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="winners-spotlight">
+        <div class="container">
+            <h2 class="section-title">Победители 2023</h2>
+            <div class="winners-grid">
+                <div class="winner-card">
+                    <div class="winner-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Победитель 2023 - Анна Иванова">
+                        <div class="winner-badge">1 место</div>
+                    </div>
+                    <div class="winner-info">
+                        <h3>Анна Иванова</h3>
+                        <p class="winner-category">Лейтилс</p>
+                        <p class="winner-description">"Невероятная пластика и артистизм покорили жюри. Участие в конкурсе открыло для меня новые горизонты в модельной индустрии."</p>
+                        <div class="winner-achievements">
+                            <span class="achievement">Контракт с агентством</span>
+                            <span class="achievement">Участие в Milan Fashion Week</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="winner-card">
+                    <div class="winner-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Победитель 2023 - Михаил Петров">
+                        <div class="winner-badge">1 место</div>
+                    </div>
+                    <div class="winner-info">
+                        <h3>Михаил Петров</h3>
+                        <p class="winner-category">Фотоконкурс</p>
+                        <p class="winner-description">"Уникальный взгляд на городской пейзаж. Профессиональное жюри и качественная организация помогли мне раскрыть творческий потенциал."</p>
+                        <div class="winner-achievements">
+                            <span class="achievement">Публикация в National Geographic</span>
+                            <span class="achievement">Персональная выставка</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="winner-card">
+                    <div class="winner-image">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Победитель 2023 - Екатерина Сидорова">
+                        <div class="winner-badge">1 место</div>
+                    </div>
+                    <div class="winner-info">
+                        <h3>Екатерина Сидорова</h3>
+                        <p class="winner-category">Фотоиониум</p>
+                        <p class="winner-description">"Инновационный подход к цифровому искусству. Конкурс дал возможность экспериментировать и творить без границ."</p>
+                        <div class="winner-achievements">
+                            <span class="achievement">Коллаборация с брендами</span>
+                            <span class="achievement">Арт-резиденция в Берлине</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="video-gallery">
+        <div class="container">
+            <h2 class="section-title">Видео с мероприятий</h2>
+            <div class="video-grid">
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Дефиле 2023">
+                    </div>
+                    <h3>Финальное дефиле 2023</h3>
+                    <p>Яркие моменты заключительного показа. Шедевры моды и грации на подиуме.</p>
+                    <div class="video-stats">
+                        <span class="video-duration">15:42</span>
+                        <span class="video-views">2.4K просмотров</span>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                        <img src="https://images.unsplash.com/photo-1551833086-7d2d1c4d1c0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Фотосессия">
+                    </div>
+                    <h3>За кулисами фотосессии</h3>
+                    <p>Как создавались лучшие кадры конкурса. Процесс работы фотографов и моделей.</p>
+                    <div class="video-stats">
+                        <span class="video-duration">08:15</span>
+                        <span class="video-views">1.8K просмотров</span>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                        <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Награждение">
+                    </div>
+                    <h3>Церемония награждения</h3>
+                    <p>Эмоции победителей и поздравления. Торжественный вечер вручения наград.</p>
+                    <div class="video-stats">
+                        <span class="video-duration">22:30</span>
+                        <span class="video-views">3.1K просмотров</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="photo-stories">
+        <div class="container">
+            <h2 class="section-title">Фотоистории</h2>
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-images">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Fashion история">
+                        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Fashion история 2">
+                    </div>
+                    <div class="story-content">
+                        <h3>Мода большого города</h3>
+                        <p>Серия работ, посвященная урбанистическому стилю и современной моде в мегаполисе.</p>
+                        <div class="story-meta">
+                            <span class="author">Анна Иванова</span>
+                            <span class="date">2023</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="story-card">
+                    <div class="story-images">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Портретная история">
+                        <img src="https://images.unsplash.com/photo-1519457431-44ccd64a579b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Портретная история 2">
+                    </div>
+                    <div class="story-content">
+                        <h3>Лица эпохи</h3>
+                        <p>Портретная серия, раскрывающая характеры и эмоции современной молодежи.</p>
+                        <div class="story-meta">
+                            <span class="author">Михаил Петров</span>
+                            <span class="date">2023</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ваша работа может быть следующей!</h2>
+                <p>Примите участие в конкурсе и покажите свой талант тысячам зрителей</p>
+                <a href="registration.html" class="btn btn-large">Участвовать в конкурсе</a>
+            </div>
+        </div>
+    </section>
+
+   
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <div class="footer-logo">Прожектор</div>
+                    <p>Конкурс дефиле и фото для талантливых людей. Покажите свой стиль и получите признание!</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Страницы</h3>
+                    <ul>
+                        <li><a href="index.html">Главная</a></li>
+                        <li><a href="about.html">О конкурсе</a></li>
+                        <li><a href="categories.html">Категории</a></li>
+                        <li><a href="registration.html">Регистрация</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li>📞 +7 (999) 123-45-67</li>
+                        <li>✉️ info@projector-contest.ru</li>
+                        <li>📍 г. Москва, ул. Примерная, д. 10</li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Соцсети</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">VK</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Telegram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Конкурс Прожектор. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="">
+            </div>
+            <div class="image-info">
+                <h3 id="imageTitle"></h3>
+                <p id="imageAuthor"></p>
+                <p id="imageDescription"></p>
+                <div class="image-meta">
+                    <span id="imageCategory"></span>
+                    <span id="imageYear"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/gallery.js"></script>
+</body>
+</html>
