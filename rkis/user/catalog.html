@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Каталог книг</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 BiblioTech</h2>
+                <p>Читатель</p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="userName">Иван Петров</h3>
+                    <p>Читательский билет: #LIB001</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Главная</a></li>
+                    <li class="active"><a href="catalog.html"><i class="fas fa-book"></i> Каталог книг</a></li>
+                    <li><a href="my-books.html"><i class="fas fa-bookmark"></i> Мои книги</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Профиль</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Каталог книг</h1>
+                <div class="header-actions">
+                    <div class="search-box large">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Поиск по названию, автору или жанру..." onkeyup="searchBooks()">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>Жанр:</label>
+                    <select id="genreFilter" onchange="filterBooks()">
+                        <option value="all">Все жанры</option>
+                        <option value="fiction">Художественная</option>
+                        <option value="science">Научная</option>
+                        <option value="fantasy">Фэнтези</option>
+                        <option value="detective">Детектив</option>
+                        <option value="history">История</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Сортировка:</label>
+                    <select id="sortFilter" onchange="filterBooks()">
+                        <option value="title">По названию</option>
+                        <option value="author">По автору</option>
+                        <option value="year_desc">Новые сначала</option>
+                        <option value="year_asc">Старые сначала</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>Доступность:</label>
+                    <select id="availabilityFilter" onchange="filterBooks()">
+                        <option value="all">Все книги</option>
+                        <option value="available">Только доступные</option>
+                    </select>
+                </div>
+                
+                <div class="view-options">
+                    <button class="view-btn active" onclick="setView('grid')"><i class="fas fa-th"></i></button>
+                    <button class="view-btn" onclick="setView('list')"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+            
+            <div class="books-container grid-view" id="booksContainer">
+                <!-- Книги загружаются через JS -->
+            </div>
+            
+            <div class="pagination" id="pagination">
+                <!-- Пагинация через JS -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Модальное окно детальной информации о книге -->
+    <div id="bookDetailsModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeBookDetails()">&times;</span>
+            <div class="book-details" id="bookDetailsContent">
+                <!-- Детали книги загружаются через JS -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserCatalog();
+        });
+    </script>
+</body>
+</html>

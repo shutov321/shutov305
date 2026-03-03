@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление выдачами - BiblioTech</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar admin-sidebar">
+            <div class="sidebar-header">
+                <h2>📚 BiblioTech</h2>
+                <p>Администратор</p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="adminName">Елена Соколова</h3>
+                    <p>Главный библиотекарь</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-pie"></i> Дашборд</a></li>
+                    <li><a href="books.html"><i class="fas fa-book"></i> Книги</a></li>
+                    <li><a href="readers.html"><i class="fas fa-users"></i> Читатели</a></li>
+                    <li class="active"><a href="loans.html"><i class="fas fa-exchange-alt"></i> Выдачи</a></li>
+                    <li><a href="reports.html"><i class="fas fa-file-alt"></i> Отчеты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Управление выдачами</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="showLoanModal()">
+                        <i class="fas fa-plus"></i> Оформить выдачу
+                    </button>
+                    <button class="btn-secondary" onclick="exportLoans()">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+            </header>
+            
+            <div class="loans-tabs">
+                <button class="tab-btn active" onclick="showLoansTab('active')">Активные выдачи</button>
+                <button class="tab-btn" onclick="showLoansTab('overdue')">Просроченные</button>
+                <button class="tab-btn" onclick="showLoansTab('today')">Выдачи сегодня</button>
+                <button class="tab-btn" onclick="showLoansTab('all')">Все выдачи</button>
+                <button class="tab-btn" onclick="showLoansTab('history')">История</button>
+            </div>
+            
+            <div class="filters-bar">
+                <div class="search-box large">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchLoan" placeholder="Поиск по книге или читателю..." onkeyup="filterLoans()">
+                </div>
+                
+                <div class="filter-group">
+                    <select id="dateFilter" onchange="filterLoans()">
+                        <option value="all">За все время</option>
+                        <option value="today">Сегодня</option>
+                        <option value="week">Эта неделя</option>
+                        <option value="month">Этот месяц</option>
+                        <option value="custom">Произвольный период</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group" id="customDateRange" style="display: none;">
+                    <input type="date" id="dateFrom" onchange="filterLoans()">
+                    <span>—</span>
+                    <input type="date" id="dateTo" onchange="filterLoans()">
+                </div>
+            </div>
+            
+            <div class="stats-grid mini-stats">
+                <div class="stat-card mini">
+                    <div class="stat-icon small">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Активных</h3>
+                        <p class="stat-number" id="activeLoansCount">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card mini">
+                    <div class="stat-icon small danger">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Просрочено</h3>
+                        <p class="stat-number" id="overdueLoansCount">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card mini">
+                    <div class="stat-icon small success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Возвращено</h3>
+                        <p class="stat-number" id="returnedLoansCount">0</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card mini">
+                    <div class="stat-icon small warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Средний срок</h3>
+                        <p class="stat-number" id="avgLoanDays">14</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Книга</th>
+                            <th>Читатель</th>
+                            <th>Дата выдачи</th>
+                            <th>Срок возврата</th>
+                            <th>Статус</th>
+                            <th>Дней просрочки</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loansTableBody">
+                        <!-- Выдачи загружаются через JS -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination" id="loansPagination">
+                <!-- Пагинация через JS -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Модальное окно оформления выдачи -->
+    <div id="loanModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoanModal()">&times;</span>
+            <h3>Оформление выдачи книги</h3>
+            
+            <form id="loanForm" onsubmit="createLoan(event)">
+                <div class="form-group">
+                    <label>Книга *</label>
+                    <select id="loanBook" required onchange="checkBookAvailability()">
+                        <option value="">Выберите книгу</option>
+                    </select>
+                    <div id="bookAvailability" class="availability-hint"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Читатель *</label>
+                    <select id="loanReader" required onchange="checkReaderStatus()">
+                        <option value="">Выберите читателя</option>
+                    </select>
+                    <div id="readerStatus" class="reader-status"></div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Дата выдачи *</label>
+                        <input type="date" id="loanDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Срок (дней) *</label>
+                        <input type="number" id="loanPeriod" value="14" min="1" max="30" required onchange="calculateReturnDate()">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Плановая дата возврата</label>
+                    <input type="date" id="returnDate" readonly class="readonly-field">
+                </div>
+                
+                <div class="form-group">
+                    <label>Комментарий</label>
+                    <textarea id="loanComment" rows="2" placeholder="Примечания к выдаче..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="submitLoanBtn">Оформить выдачу</button>
+                    <button type="button" class="btn-secondary" onclick="closeLoanModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модальное окно продления срока -->
+    <div id="extendLoanModal" class="modal">
+        <div class="modal-content small">
+            <span class="close" onclick="closeExtendModal()">&times;</span>
+            <h3>Продление срока</h3>
+            
+            <form id="extendForm" onsubmit="extendLoan(event)">
+                <input type="hidden" id="extendLoanId">
+                
+                <div class="form-group">
+                    <label>Новый срок возврата</label>
+                    <input type="date" id="newReturnDate" required min="">
+                </div>
+                
+                <div class="form-group">
+                    <label>Причина продления</label>
+                    <textarea id="extendReason" rows="2"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Продлить</button>
+                    <button type="button" class="btn-secondary" onclick="closeExtendModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAdminLoans();
+            loadBooksForSelect();
+            loadReadersForSelect();
+            setDefaultDates();
+        });
+    </script>
+</body>
+</html>

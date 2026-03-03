@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 BiblioTech</h2>
+                <p>Читатель</p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="userName">Иван Петров</h3>
+                    <p>Читательский билет: #LIB001</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="catalog.html"><i class="fas fa-book"></i> Каталог книг</a></li>
+                    <li><a href="my-books.html"><i class="fas fa-bookmark"></i> Мои книги</a></li>
+                    <li class="active"><a href="profile.html"><i class="fas fa-user"></i> Профиль</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Мой профиль</h1>
+            </header>
+            
+            <div class="profile-grid">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="profile-avatar-large">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="profile-title">
+                            <h2 id="profileName">Иван Петров</h2>
+                            <p class="profile-member-since">Читатель с 2023 года</p>
+                        </div>
+                        <button class="edit-profile-btn" onclick="enableEditMode()">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </button>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="profile-stat-item">
+                            <span class="stat-label">Книг прочитано</span>
+                            <span class="stat-value-large" id="totalBooksRead">15</span>
+                        </div>
+                        <div class="profile-stat-item">
+                            <span class="stat-label">Сейчас читаю</span>
+                            <span class="stat-value-large" id="currentlyReading">2</span>
+                        </div>
+                        <div class="profile-stat-item">
+                            <span class="stat-label">В любимых</span>
+                            <span class="stat-value-large" id="favoriteBooksCount">7</span>
+                        </div>
+                    </div>
+                    
+                    <form id="profileForm" class="profile-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Имя</label>
+                                <input type="text" id="firstName" value="Иван" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Фамилия</label>
+                                <input type="text" id="lastName" value="Петров" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="email" value="ivan.petrov@email.com" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Телефон</label>
+                                <input type="tel" id="phone" value="+7 (999) 123-45-67" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Адрес</label>
+                            <input type="text" id="address" value="г. Москва, ул. Ленина, д. 1, кв. 101" disabled>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Дата рождения</label>
+                            <input type="date" id="birthDate" value="1990-01-01" disabled>
+                        </div>
+                        
+                        <div class="form-actions" id="formActions" style="display: none;">
+                            <button type="button" class="btn-primary" onclick="saveProfile()">Сохранить</button>
+                            <button type="button" class="btn-secondary" onclick="cancelEdit()">Отмена</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="preferences-card">
+                    <h3>Любимые жанры</h3>
+                    <div class="genre-tags">
+                        <span class="genre-tag">Фантастика</span>
+                        <span class="genre-tag">Детектив</span>
+                        <span class="genre-tag">Классика</span>
+                        <span class="genre-tag add-tag">+ Добавить</span>
+                    </div>
+                    
+                    <h3>Уведомления</h3>
+                    <div class="notification-settings">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>Email-уведомления о приближении срока сдачи</span>
+                    </div>
+                    
+                    <div class="notification-settings">
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                        <span>SMS-уведомления о новых поступлениях</span>
+                    </div>
+                    
+                    <h3>Безопасность</h3>
+                    <button class="btn-outline" onclick="changePassword()">
+                        <i class="fas fa-key"></i> Сменить пароль
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadUserProfile);
+    </script>
+</body>
+</html>

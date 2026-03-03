@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отчеты и аналитика - BiblioTech</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar admin-sidebar">
+            <div class="sidebar-header">
+                <h2>📚 BiblioTech</h2>
+                <p>Администратор</p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="adminName">Елена Соколова</h3>
+                    <p>Главный библиотекарь</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-pie"></i> Дашборд</a></li>
+                    <li><a href="books.html"><i class="fas fa-book"></i> Книги</a></li>
+                    <li><a href="readers.html"><i class="fas fa-users"></i> Читатели</a></li>
+                    <li><a href="loans.html"><i class="fas fa-exchange-alt"></i> Выдачи</a></li>
+                    <li class="active"><a href="reports.html"><i class="fas fa-file-alt"></i> Отчеты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Отчеты и аналитика</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="generateReport()">
+                        <i class="fas fa-file-pdf"></i> Сформировать отчет
+                    </button>
+                </div>
+            </header>
+            
+            <div class="reports-tabs">
+                <button class="tab-btn active" onclick="showReportTab('overview')">Обзор</button>
+                <button class="tab-btn" onclick="showReportTab('popular')">Популярные книги</button>
+                <button class="tab-btn" onclick="showReportTab('readers')">Активность читателей</button>
+                <button class="tab-btn" onclick="showReportTab('debtors')">Задолженности</button>
+                <button class="tab-btn" onclick="showReportTab('inventory')">Инвентаризация</button>
+            </div>
+            
+            <!-- Вкладка Обзор -->
+            <div id="overviewTab" class="report-tab active">
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>Период:</label>
+                        <select id="overviewPeriod" onchange="loadOverviewReport()">
+                            <option value="today">Сегодня</option>
+                            <option value="week">Эта неделя</option>
+                            <option value="month" selected>Этот месяц</option>
+                            <option value="quarter">Квартал</option>
+                            <option value="year">Год</option>
+                            <option value="custom">Произвольный</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group" id="overviewCustomRange" style="display: none;">
+                        <input type="date" id="overviewFrom" onchange="loadOverviewReport()">
+                        <span>—</span>
+                        <input type="date" id="overviewTo" onchange="loadOverviewReport()">
+                    </div>
+                    
+                    <button class="btn-secondary" onclick="exportReport('overview')">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+                
+                <div class="report-cards">
+                    <div class="report-card">
+                        <h3>Основные показатели</h3>
+                        <div class="report-metrics">
+                            <div class="metric-item">
+                                <span class="metric-label">Выдано книг</span>
+                                <span class="metric-value" id="totalLoansMetric">156</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Возвращено</span>
+                                <span class="metric-value" id="returnedLoansMetric">142</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Новых читателей</span>
+                                <span class="metric-value" id="newReadersMetric">23</span>
+                            </div>
+                            <div class="metric-item">
+                                <span class="metric-label">Просрочки</span>
+                                <span class="metric-value" id="overdueLoansMetric">12</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="report-card">
+                        <h3>Динамика по дням</h3>
+                        <canvas id="dailyChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="report-grid">
+                    <div class="report-card">
+                        <h3>Топ-5 популярных жанров</h3>
+                        <canvas id="genresPieChart"></canvas>
+                    </div>
+                    
+                    <div class="report-card">
+                        <h3>Активность по часам</h3>
+                        <canvas id="hourlyChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <h3>Сводная таблица</h3>
+                    <table class="compact-table">
+                        <thead>
+                            <tr>
+                                <th>Показатель</th>
+                                <th>Текущий период</th>
+                                <th>Прошлый период</th>
+                                <th>Изменение</th>
+                            </tr>
+                        </thead>
+                        <tbody id="summaryTable">
+                            <!-- Данные загружаются через JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Вкладка Популярные книги -->
+            <div id="popularTab" class="report-tab">
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>Период:</label>
+                        <select id="popularPeriod" onchange="loadPopularBooksReport()">
+                            <option value="month" selected>Этот месяц</option>
+                            <option value="quarter">Квартал</option>
+                            <option value="year">Год</option>
+                            <option value="all">За все время</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Жанр:</label>
+                        <select id="popularGenre" onchange="loadPopularBooksReport()">
+                            <option value="all">Все жанры</option>
+                            <option value="fiction">Художественная</option>
+                            <option value="science">Научная</option>
+                            <option value="fantasy">Фэнтези</option>
+                            <option value="detective">Детектив</option>
+                            <option value="history">История</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-secondary" onclick="exportReport('popular')">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+                
+                <div class="report-card">
+                    <h3>Топ-10 самых популярных книг</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>Книга</th>
+                                <th>Автор</th>
+                                <th>Жанр</th>
+                                <th>Кол-во выдач</th>
+                                <th>Дней на руках</th>
+                                <th>Популярность</th>
+                            </tr>
+                        </thead>
+                        <tbody id="popularBooksTable">
+                            <!-- Данные загружаются через JS -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="report-grid">
+                    <div class="report-card">
+                        <h3>Распределение по жанрам</h3>
+                        <canvas id="popularGenresChart"></canvas>
+                    </div>
+                    
+                    <div class="report-card">
+                        <h3>Самые востребованные авторы</h3>
+                        <div id="topAuthorsList" class="top-list"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вкладка Активность читателей -->
+            <div id="readersTab" class="report-tab">
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>Период:</label>
+                        <select id="readersPeriod" onchange="loadReadersActivityReport()">
+                            <option value="month" selected>Этот месяц</option>
+                            <option value="quarter">Квартал</option>
+                            <option value="year">Год</option>
+                            <option value="all">За все время</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-secondary" onclick="exportReport('readers')">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+                
+                <div class="stats-grid mini-stats">
+                    <div class="stat-card mini">
+                        <div class="stat-icon small">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Новые читатели</h3>
+                            <p class="stat-number" id="newReadersCount">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card mini">
+                        <div class="stat-icon small success">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Активные</h3>
+                            <p class="stat-number" id="activeReadersCount">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card mini">
+                        <div class="stat-icon small warning">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Малоактивные</h3>
+                            <p class="stat-number" id="inactiveReadersCount">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card mini">
+                        <div class="stat-icon small danger">
+                            <i class="fas fa-user-slash"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Должники</h3>
+                            <p class="stat-number" id="debtorsCount">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="report-grid">
+                    <div class="report-card">
+                        <h3>Топ-10 самых активных читателей</h3>
+                        <table class="compact-table">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th>Читатель</th>
+                                    <th>Кол-во книг</th>
+                                    <th>Дней чтения</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topReadersTable"></tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="report-card">
+                        <h3>Возрастная статистика</h3>
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <h3>Распределение читателей по активности</h3>
+                    <canvas id="activityChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Вкладка Задолженности -->
+            <div id="debtorsTab" class="report-tab">
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>Период просрочки:</label>
+                        <select id="debtPeriod" onchange="loadDebtorsReport()">
+                            <option value="all">Все</option>
+                            <option value="1-7">До недели</option>
+                            <option value="8-30">До месяца</option>
+                            <option value="30+">Более месяца</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="sendDebtReminders()">
+                        <i class="fas fa-bell"></i> Отправить напоминания
+                    </button>
+                    
+                    <button class="btn-secondary" onclick="exportReport('debtors')">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+                
+                <div class="stats-grid mini-stats">
+                    <div class="stat-card mini">
+                        <div class="stat-icon small danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Всего должников</h3>
+                            <p class="stat-number" id="totalDebtors">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card mini">
+                        <div class="stat-icon small warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Просроченных книг</h3>
+                            <p class="stat-number" id="overdueBooks">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card mini">
+                        <div class="stat-icon small">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Сумма штрафов</h3>
+                            <p class="stat-number" id="totalFines">0 ₽</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <h3>Список должников</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Читатель</th>
+                                <th>Книга</th>
+                                <th>Дата выдачи</th>
+                                <th>Срок возврата</th>
+                                <th>Дней просрочки</th>
+                                <th>Штраф</th>
+                                <th>Статус</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="debtorsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Вкладка Инвентаризация -->
+            <div id="inventoryTab" class="report-tab">
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label>Статус:</label>
+                        <select id="inventoryStatus" onchange="loadInventoryReport()">
+                            <option value="all">Все книги</option>
+                            <option value="available">В наличии</option>
+                            <option value="issued">Выданы</option>
+                            <option value="lost">Утеряны</option>
+                            <option value="damaged">Повреждены</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn-primary" onclick="startInventory()">
+                        <i class="fas fa-clipboard-list"></i> Начать инвентаризацию
+                    </button>
+                    
+                    <button class="btn-secondary" onclick="exportReport('inventory')">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+                
+                <div class="stats-grid mini-stats">
+                    <div class="stat-card mini">
+                        <div class="stat-icon small">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Всего книг</h3>
+                            <p class="stat-number" id="totalInventoryBooks">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card mini">
+                        <div class="stat-icon small success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>В наличии</h3>
+                            <p class="stat-number" id="availableInventoryBooks">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card mini">
+                        <div class="stat-icon small warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Выдано</h3>
+                            <p class="stat-number" id="issuedInventoryBooks">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="report-grid">
+                    <div class="report-card">
+                        <h3>Состояние фонда</h3>
+                        <canvas id="inventoryChart"></canvas>
+                    </div>
+                    
+                    <div class="report-card">
+                        <h3>Распределение по жанрам</h3>
+                        <div id="inventoryByGenre"></div>
+                    </div>
+                </div>
+                
+                <div class="report-card">
+                    <h3>Книги, требующие внимания</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Книга</th>
+                                <th>Автор</th>
+                                <th>Состояние</th>
+                                <th>Последняя проверка</th>
+                                <th>Примечание</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attentionBooksTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadReportsData();
+            initReportCharts();
+        });
+    </script>
+</body>
+</html>

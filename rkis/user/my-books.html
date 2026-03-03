@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои книги - BiblioTech</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>📚 BiblioTech</h2>
+                <p>Читатель</p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="userName">Иван Петров</h3>
+                    <p>Читательский билет: #LIB001</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="catalog.html"><i class="fas fa-book"></i> Каталог книг</a></li>
+                    <li class="active"><a href="my-books.html"><i class="fas fa-bookmark"></i> Мои книги</a></li>
+                    <li><a href="profile.html"><i class="fas fa-user"></i> Профиль</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Мои книги</h1>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchMyBooks" placeholder="Поиск в моих книгах..." onkeyup="filterMyBooks()">
+                    </div>
+                </div>
+            </header>
+            
+            <div class="my-books-tabs">
+                <button class="tab-btn active" onclick="showMyBooksTab('current')">Текущие выдачи</button>
+                <button class="tab-btn" onclick="showMyBooksTab('history')">История чтения</button>
+                <button class="tab-btn" onclick="showMyBooksTab('reserved')">Забронированные</button>
+                <button class="tab-btn" onclick="showMyBooksTab('favorites')">Избранное</button>
+            </div>
+            
+            <!-- Вкладка Текущие выдачи -->
+            <div id="currentTab" class="my-books-tab active">
+                <div class="bookshelf-header">
+                    <h2>Книги на руках</h2>
+                    <span class="bookshelf-count" id="currentBooksCount">2</span>
+                </div>
+                
+                <div class="bookshelf-grid" id="currentBooksContainer">
+                    <!-- Книги загружаются через JS -->
+                </div>
+                
+                <div class="reading-tips">
+                    <div class="tip-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Совет дня</h3>
+                        <p>Читайте по 30 минут в день - это 180 страниц в неделю!</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <i class="fas fa-clock"></i>
+                        <h3>Ближайший срок сдачи</h3>
+                        <p id="nearestReturn">Завтра, 28 февраля</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вкладка История чтения -->
+            <div id="historyTab" class="my-books-tab">
+                <div class="bookshelf-header">
+                    <h2>История чтения</h2>
+                    <span class="bookshelf-count" id="historyBooksCount">15</span>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-filter">
+                        <select id="historyYearFilter" onchange="filterHistory()">
+                            <option value="all">Все годы</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+                        
+                        <select id="historyMonthFilter" onchange="filterHistory()">
+                            <option value="all">Все месяцы</option>
+                            <option value="1">Январь</option>
+                            <option value="2">Февраль</option>
+                            <option value="3">Март</option>
+                            <option value="4">Апрель</option>
+                            <option value="5">Май</option>
+                            <option value="6">Июнь</option>
+                            <option value="7">Июль</option>
+                            <option value="8">Август</option>
+                            <option value="9">Сентябрь</option>
+                            <option value="10">Октябрь</option>
+                            <option value="11">Ноябрь</option>
+                            <option value="12">Декабрь</option>
+                        </select>
+                    </div>
+                    
+                    <div class="timeline-stats">
+                        <div class="timeline-stat">
+                            <span class="stat-value" id="totalReadTime">320</span>
+                            <span class="stat-label">дней чтения</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="stat-value" id="avgReadTime">21</span>
+                            <span class="stat-label">дней на книгу</span>
+                        </div>
+                        <div class="timeline-stat">
+                            <span class="stat-value" id="totalPages">8450</span>
+                            <span class="stat-label">страниц</span>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-books" id="historyBooksContainer">
+                        <!-- История загружается через JS -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вкладка Забронированные -->
+            <div id="reservedTab" class="my-books-tab">
+                <div class="bookshelf-header">
+                    <h2>Забронированные книги</h2>
+                    <span class="bookshelf-count" id="reservedBooksCount">1</span>
+                </div>
+                
+                <div class="reserved-info">
+                    <div class="info-message">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Забронированные книги хранятся в библиотеке 3 дня</p>
+                    </div>
+                </div>
+                
+                <div class="bookshelf-grid" id="reservedBooksContainer">
+                    <!-- Забронированные книги загружаются через JS -->
+                </div>
+            </div>
+            
+            <!-- Вкладка Избранное -->
+            <div id="favoritesTab" class="my-books-tab">
+                <div class="bookshelf-header">
+                    <h2>Избранное</h2>
+                    <span class="bookshelf-count" id="favoritesBooksCount">3</span>
+                </div>
+                
+                <div class="favorites-actions">
+                    <button class="btn-secondary" onclick="exportFavorites()">
+                        <i class="fas fa-download"></i> Экспортировать список
+                    </button>
+                    
+                    <button class="btn-secondary" onclick="shareFavorites()">
+                        <i class="fas fa-share-alt"></i> Поделиться
+                    </button>
+                </div>
+                
+                <div class="bookshelf-grid" id="favoritesBooksContainer">
+                    <!-- Избранное загружается через JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Модальное окно детальной информации о книге -->
+    <div id="bookDetailsModal" class="modal">
+        <div class="modal-content large">
+            <span class="close" onclick="closeBookDetails()">&times;</span>
+            <div class="book-details" id="bookDetailsContent">
+                <!-- Детали книги загружаются через JS -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно продления срока -->
+    <div id="extendRequestModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeExtendRequest()">&times;</span>
+            <h3>Запрос на продление</h3>
+            
+            <form id="extendRequestForm" onsubmit="submitExtendRequest(event)">
+                <input type="hidden" id="extendBookId">
+                
+                <div class="form-group">
+                    <label>Книга</label>
+                    <input type="text" id="extendBookTitle" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Текущая дата возврата</label>
+                    <input type="text" id="currentReturnDate" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Желаемая дата возврата</label>
+                    <input type="date" id="desiredReturnDate" required min="">
+                </div>
+                
+                <div class="form-group">
+                    <label>Причина продления</label>
+                    <textarea id="extendReason" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Отправить запрос</button>
+                    <button type="button" class="btn-secondary" onclick="closeExtendRequest()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Модальное окно добавления в избранное -->
+    <div id="addToFavoritesModal" class="modal">
+        <div class="modal-content small">
+            <span class="close" onclick="closeFavoritesModal()">&times;</span>
+            <h3>Добавить в избранное</h3>
+            
+            <form id="favoritesForm" onsubmit="addToFavorites(event)">
+                <input type="hidden" id="favoriteBookId">
+                
+                <div class="form-group">
+                    <label>Книга</label>
+                    <input type="text" id="favoriteBookTitle" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label>Папка</label>
+                    <select id="favoriteFolder">
+                        <option value="default">Основное</option>
+                        <option value="wishlist">Хочу прочитать</option>
+                        <option value="favorites">Любимое</option>
+                        <option value="to-reread">Перечитать</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Заметка</label>
+                    <textarea id="favoriteNote" rows="2" placeholder="Ваши заметки о книге..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Сохранить</button>
+                    <button type="button" class="btn-secondary" onclick="closeFavoritesModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadMyBooks();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление книгами</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar admin-sidebar">
+            <div class="sidebar-header">
+                <h2>📚 BiblioTech</h2>
+                <p>Администратор</p>
+            </div>
+            
+            <div class="user-info">
+                <div class="user-avatar admin-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="user-details">
+                    <h3>Елена Соколова</h3>
+                    <p>Главный библиотекарь</p>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-pie"></i> Дашборд</a></li>
+                    <li class="active"><a href="books.html"><i class="fas fa-book"></i> Книги</a></li>
+                    <li><a href="readers.html"><i class="fas fa-users"></i> Читатели</a></li>
+                    <li><a href="loans.html"><i class="fas fa-exchange-alt"></i> Выдачи</a></li>
+                    <li><a href="reports.html"><i class="fas fa-file-alt"></i> Отчеты</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Выйти</a>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <header class="content-header">
+                <h1>Управление книгами</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" onclick="showAddBookModal()">
+                        <i class="fas fa-plus"></i> Добавить книгу
+                    </button>
+                    <button class="btn-secondary" onclick="exportBooks()">
+                        <i class="fas fa-download"></i> Экспорт
+                    </button>
+                </div>
+            </header>
+            
+            <div class="filters-bar">
+                <div class="search-box large">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchBook" placeholder="Поиск по названию, автору или ISBN..." onkeyup="adminFilterBooks()">
+                </div>
+                
+                <div class="filter-group">
+                    <select id="genreFilter" onchange="adminFilterBooks()">
+                        <option value="all">Все жанры</option>
+                        <option value="fiction">Художественная</option>
+                        <option value="science">Научная</option>
+                        <option value="fantasy">Фэнтези</option>
+                        <option value="detective">Детектив</option>
+                        <option value="history">История</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <select id="statusFilter" onchange="adminFilterBooks()">
+                        <option value="all">Все статусы</option>
+                        <option value="available">В наличии</option>
+                        <option value="issued">Выдана</option>
+                        <option value="reserved">Забронирована</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Обложка</th>
+                            <th>Название</th>
+                            <th>Автор</th>
+                            <th>Жанр</th>
+                            <th>Год</th>
+                            <th>ISBN</th>
+                            <th>Статус</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody id="booksTableBody">
+                        <!-- Книги загружаются через JS -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination" id="adminPagination">
+                <!-- Пагинация через JS -->
+            </div>
+        </main>
+    </div>
+    
+    <!-- Модальное окно добавления/редактирования книги -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBookModal()">&times;</span>
+            <h3 id="bookModalTitle">Добавить книгу</h3>
+            
+            <form id="bookForm" onsubmit="saveBook(event)">
+                <input type="hidden" id="bookId">
+                
+                <div class="form-group">
+                    <label>Название *</label>
+                    <input type="text" id="bookTitle" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Автор *</label>
+                        <input type="text" id="bookAuthor" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Год *</label>
+                        <input type="number" id="bookYear" min="1000" max="2024" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Жанр *</label>
+                        <select id="bookGenre" required>
+                            <option value="fiction">Художественная</option>
+                            <option value="science">Научная</option>
+                            <option value="fantasy">Фэнтези</option>
+                            <option value="detective">Детектив</option>
+                            <option value="history">История</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>ISBN *</label>
+                        <input type="text" id="bookIsbn" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Издательство</label>
+                        <input type="text" id="bookPublisher">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Количество страниц</label>
+                        <input type="number" id="bookPages">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="bookDescription" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Обложка (URL)</label>
+                    <input type="url" id="bookCover">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Сохранить</button>
+                    <button type="button" class="btn-secondary" onclick="closeBookModal()">Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', loadAdminBooks);
+    </script>
+</body>
+</html>
